@@ -44,6 +44,9 @@ class Turbine:
         self.unextextended = constants.windspeed * (1 - ((1 - math.sqrt(1 - self.ct)) / (1 + 2 * self.sextended * constants.alpha) ** 2))
         return self.unextextended
 
+    def setuto(self, velocities):
+        self.unext = velocities
+
     def returnlast(self):
         return self.unext[-1]
 
@@ -73,10 +76,14 @@ def main():
 
     x = np.append(x, T2.location+(T2.s*T2.diameter))
     # y = np.append(y, T2.unext)
-    y = np.append(y, constants.windspeed*(1-np.sqrt((1-T1.supplyrange(2000,4000)/constants.windspeed)**2+(1-T2.unext/constants.windspeed)**2)))
+    # write some function to do this combined wake madness (with as input a list of the participating objects)
+    T2.setuto(constants.windspeed*(1-np.sqrt((1-T1.supplyrange(2000,4000)/constants.windspeed)**2+(1-T2.unext/constants.windspeed)**2)))
+    y = np.append(y, T2.unext)
 
     plt.plot(x, y)
     plt.show()
+
+    print(T2.returnlast())
 
     # T3 = Turbine(4000, 200, T2.returnlast(), constants.power)
     # print(T3.power, T3.thrust, T3.ct)
