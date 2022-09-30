@@ -12,6 +12,7 @@ import utils.constants as constants
 class Turbine:
     """
     """
+
     def __init__(self, location: float, diameter: float, localwindspeed: float, power: float):
 
         index = 0
@@ -21,23 +22,30 @@ class Turbine:
         self.location = location
         self.diameter = diameter
         self.localwindspeed = localwindspeed
-        self.power = power
-        self.rotorspeed = (2/3)*self.localwindspeed
+        self.power = power * (localwindspeed/constants.windspeed)**3
+        self.rotorspeed = (2/3)*localwindspeed
         self.thrust = self.power / self.rotorspeed
         # Thrust coefficient
-        self.ct = self.thrust / (0.5*constants.rho*(self.localwindspeed**2)*math.pi*((self.diameter/2)**2))
+        self.ct = self.thrust / (0.5*constants.rho*(localwindspeed**2)*math.pi*((diameter/2)**2))
 
 
-    def evaluatenext(self, initialwindspeed) -> None:
-        # create s area from s>3 to s=13
+    def evaluatespecific(self, idx):
+        return constants.windspeed * (1 - ((1 - math.sqrt(1 - self.ct)) / (1 + 2 * idx * constants.alpha) ** 2))
+
+    def evaluateupto(self, nextturbine):
+        # nexttrubine is the distance form one turbine to the next one
         stepsize = 0.1
-        self.s = np.arange(self.diameter * 3 + 1, self.diameter * 13, stepsize) / self.diameter
-        self.unext = initialwindspeed * (1 - ((1 - math.sqrt(1 - self.ct)) / (1 + 2 * self.s * constants.alpha) ** 2))
+        # distance range
+        self.s = np.arange((self.diameter * 3 + 1), nextturbine + stepsize, stepsize) / self.diameter
+        self.unext = constants.windspeed * (1 - ((1 - math.sqrt(1 - self.ct)) / (1 + 2 * self.s * constants.alpha) ** 2))
 
-        # return self.unext
+    def supplyrange(self, first, last):
+        self.sextended = np.arange(first+(self.diameter * 3 + 1), last+0.1,0.1) / self.diameter
+        self.unextextended = constants.windspeed * (1 - ((1 - math.sqrt(1 - self.ct)) / (1 + 2 * self.sextended * constants.alpha) ** 2))
+        return self.unextextended
 
-    def specificvelocity(self, location) -> float:
-        return self.unext[np.where(self.s == location)]
+    def returnlast(self):
+        return self.unext[-1]
 
 
 class Windfarm:
@@ -49,15 +57,36 @@ class Windfarm:
 
 def main():
 
-    vnot = 12
+    T1 = Turbine(0,200, constants.windspeed, constants.power)
+    print(T1.localwindspeed, T1.power, T1.thrust, T1.ct)
+    T1.evaluateupto(2000)
 
-    T1 = Turbine(0,200,vnot, constants.power)
-    T1.evaluatenext(vnot)
+    x = np.insert(T1.s*T1.diameter, 0, 0, axis=0)
+    y = np.insert(T1.unext, 0, constants.windspeed, axis=0)
 
-    plt.plot(T1.s, T1.unext)
+    plt.plot(x, y)
     plt.show()
 
-    # T2 = Turbine(2000,200,T1.specificvelocity(2000), constants.power)
+    T2 = Turbine(2000,200,T1.returnlast(), constants.power)
+    print(T2.localwindspeed, T2.power, T2.thrust, T2.ct)
+    T2.evaluateupto(2000)
+
+    x = np.append(x, T2.location+(T2.s*T2.diameter))
+    # y = np.append(y, T2.unext)
+    y = np.append(y, constants.windspeed*(1-np.sqrt((1-T1.supplyrange(2000,4000)/constants.windspeed)**2+(1-T2.unext/constants.windspeed)**2)))
+
+    plt.plot(x, y)
+    plt.show()
+
+    # T3 = Turbine(4000, 200, T2.returnlast(), constants.power)
+    # print(T3.power, T3.thrust, T3.ct)
+    # T3.evaluateupto(2000)
+    #
+    # x = np.append(x, T3.location + (T3.s * T3.diameter))
+    # y = np.append(y, T3.unext)
+    #
+    # plt.plot(x, y)
+    # plt.show()
 
     # find the turbines within proximity of first turbine (upto s=13)
     # store them in a list
