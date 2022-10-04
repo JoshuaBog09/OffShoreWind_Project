@@ -6,7 +6,7 @@ ___
 | Task | Done by | Time | Current status | Checked | Completed | 
 |------|---------|------|----------------|---------|-----------|
 | GUI | | | Exploring | | |
-| Wake effect | Joshua | +/-4h | Completed | :x: | :x: |
+| Wake effect | Joshua | +/-6h | Completed | :x: | :x: |
 | Weather data | | | | | |
 | Turbine data | | | | | |
 | Poster | | | | | |
