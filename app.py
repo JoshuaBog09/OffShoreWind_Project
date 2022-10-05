@@ -44,7 +44,10 @@ class Counter(QtWidgets.QMainWindow):
 
         self.pushButton.clicked.connect(self.clear)
 
-        self.plotWidget = FigureCanvasQTAgg(Figure())
+        self.fig, self.ax = plt.subplots()
+        self.ax.plot([1, 2,3], [1, 20,2])
+
+        self.plotWidget = FigureCanvasQTAgg(self.fig)
         self.lay = QtWidgets.QVBoxLayout(self.widget)
         self.lay.setContentsMargins(0, 0, 0, 0)
         self.lay.addWidget(self.plotWidget)
