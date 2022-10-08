@@ -16,13 +16,13 @@ pip install requests
 
 ___
 ## Progress and task devsion
-| Task | Done by | Time | Current status | Checked | Completed | 
-|------|---------|------|----------------|---------|-----------|
-| GUI | | | Exploring | | |
-| Wake effect | Joshua | +/-6h | Completed | :x: | :x: |
-| Weather data | | | | | |
-| Turbine data | | | | | |
-| Poster | | | | | |
-| ... | | | | | |
+| Task | Done by | Time | Current status         | Checked | Completed | 
+|------|--------|------|------------------------|---------|-----------|
+| GUI | Joshua | | Exploring/ in progress | | |
+| Wake effect | Joshua | +/-6h | Completed              | :x: | :x: |
+| Weather data |        | |                        | | |
+| Turbine data |        | |                        | | |
+| Poster |        | |                        | | |
+| ... |        | |                        | | |
 ___
 ## Sources

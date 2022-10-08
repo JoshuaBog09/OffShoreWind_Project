@@ -1,4 +1,6 @@
 import sys
+import webbrowser
+
 from PyQt5 import QtCore,QtGui, QtWidgets
 from PyQt5 import uic
 
@@ -36,31 +38,57 @@ import numpy as np
 #         self.value += 1
 #         self.label.setText(f"{self.value}")
 
-class Counter(QtWidgets.QMainWindow):
+# class Counter(QtWidgets.QMainWindow):
+#
+#     def __init__(self, *args, **kwargs):
+#         super().__init__(*args, **kwargs)
+#         uic.loadUi("uis/plots.ui", self)
+#
+#         self.pushButton.clicked.connect(self.clear)
+#
+#         self.fig, self.ax = plt.subplots()
+#         self.ax.plot([1, 2,3], [1, 20,2])
+#
+#         self.plotWidget = FigureCanvasQTAgg(self.fig)
+#         self.lay = QtWidgets.QVBoxLayout(self.widget)
+#         self.lay.setContentsMargins(0, 0, 0, 0)
+#         self.lay.addWidget(self.plotWidget)
+#
+#     def clear(self):
+#         self.fig, self.ax = plt.subplots()
+#         self.ax.plot([1, 10], [1, 2])
+#         self.plotWidget.deleteLater()
+#         self.plotWidget = FigureCanvasQTAgg(self.fig)
+#         self.lay.addWidget(self.plotWidget)
+#
+#
+# app = QtWidgets.QApplication(sys.argv)
+# window = Counter()
+# window.show()
+# app.exec_()
+
+
+class MainWindow(QtWidgets.QMainWindow):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        uic.loadUi("uis/plots.ui", self)
+        uic.loadUi("uis/mainscreen.ui", self)
 
-        self.pushButton.clicked.connect(self.clear)
+        self.pushButton.clicked.connect(self.hi)
+        self.pushButton_2.clicked.connect(self.github)
+        self.pushButton_3.clicked.connect(self.end)
 
-        self.fig, self.ax = plt.subplots()
-        self.ax.plot([1, 2,3], [1, 20,2])
+    def hi(self):
+        print("hello world")
 
-        self.plotWidget = FigureCanvasQTAgg(self.fig)
-        self.lay = QtWidgets.QVBoxLayout(self.widget)
-        self.lay.setContentsMargins(0, 0, 0, 0)
-        self.lay.addWidget(self.plotWidget)
+    def end(self):
+        sys.exit()
 
-    def clear(self):
-        self.fig, self.ax = plt.subplots()
-        self.ax.plot([1, 10], [1, 2])
-        self.plotWidget.deleteLater()
-        self.plotWidget = FigureCanvasQTAgg(self.fig)
-        self.lay.addWidget(self.plotWidget)
+    def github(self):
+        webbrowser.open('https://github.com/JoshuaBog09/OffShoreWind_Project')
 
 
 app = QtWidgets.QApplication(sys.argv)
-window = Counter()
+window = MainWindow()
 window.show()
 app.exec_()
