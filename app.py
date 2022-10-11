@@ -4,6 +4,8 @@ import webbrowser
 from PyQt5 import QtCore,QtGui, QtWidgets
 from PyQt5 import uic
 
+import logo_rc
+
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg
 from matplotlib.figure import Figure
