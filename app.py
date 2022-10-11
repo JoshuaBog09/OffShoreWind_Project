@@ -79,7 +79,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.pushButton_3.clicked.connect(self.end)
 
     def hi(self):
-        print("hello world")
+        print(f"{self.lineEdit.text()}")
 
     def end(self):
         sys.exit()
