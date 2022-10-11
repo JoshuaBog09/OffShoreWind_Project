@@ -74,12 +74,21 @@ class MainWindow(QtWidgets.QMainWindow):
         super().__init__(*args, **kwargs)
         uic.loadUi("uis/mainscreen.ui", self)
 
-        self.pushButton.clicked.connect(self.hi)
+        self.pushButton.clicked.connect(self.submit)
         self.pushButton_2.clicked.connect(self.github)
         self.pushButton_3.clicked.connect(self.end)
 
-    def hi(self):
-        print(f"{self.lineEdit.text()}")
+    def submit(self):
+        wind_velocity_0m = float(self.wind_velocity.text())
+        print(wind_velocity_0m)
+        hub_height = float(self.hub_height.text())
+        print(hub_height)
+        diameter = float(self.diameter.text())
+        print(diameter)
+        turbine_cost = float(self.turbine_cost.text())
+        print(turbine_cost)
+        turbine_placement = list(self.turbine_placement.text())
+        print(turbine_placement)
 
     def end(self):
         sys.exit()
