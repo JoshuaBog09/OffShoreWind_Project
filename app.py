@@ -26,8 +26,9 @@ class MainWindow(QtWidgets.QMainWindow):
         print(diameter)
         turbine_cost = float(self.turbine_cost.text())
         print(turbine_cost)
-        turbine_placement = list(self.turbine_placement.text())
-        print(turbine_placement)
+        turbine_placement = str(self.turbine_placement.text())
+        turbine_placement_list = turbine_placement.split(", ")
+        print(turbine_placement_list)
 
     def end(self):
         sys.exit()
