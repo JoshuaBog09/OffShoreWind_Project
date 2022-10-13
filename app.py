@@ -28,19 +28,17 @@ class MainWindow(QtWidgets.QMainWindow):
         self.lay.addWidget(self.plotWidget)
 
     def submit(self):
-        try:
-            wind_velocity_0m = float(self.wind_velocity.text())
-            print(wind_velocity_0m)
-            hub_height = float(self.hub_height.text())
-            print(hub_height)
-            diameter = float(self.diameter.text())
-            print(diameter)
-            turbine_cost = float(self.turbine_cost.text())
-            print(turbine_cost)
-            turbine_placement = list(self.turbine_placement.text())
-            print(turbine_placement)
-        except:
-            print(f"meh")
+        wind_velocity_0m = float(self.wind_velocity.text())
+        print(wind_velocity_0m)
+        hub_height = float(self.hub_height.text())
+        print(hub_height)
+        diameter = float(self.diameter.text())
+        print(diameter)
+        turbine_cost = float(self.turbine_cost.text())
+        print(turbine_cost)
+        turbine_placement = str(self.turbine_placement.text())
+        turbine_placement_list = turbine_placement.split(", ")
+        print(turbine_placement_list)
 
     def end(self):
         sys.exit()
