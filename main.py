@@ -71,6 +71,14 @@ class Turbine:
         return f"WindTurbine instance created with Turbine(location, diameter, localwindspeed, power)"
 
 
+def powerfirst(diameter, velocity):
+    """
+    :param diameter: Diameter of the turbine blades
+    :param velocity: Velocity at the turbine hub
+    :return: Power of the first turbine based on theoretical performance * efficiency factor of 80%
+    """
+    return (16/27)*(1/8)*constants.rho*math.pi*(diameter**2)*(velocity**3)*0.8
+
 def windfarm(request: list):
 
     turbine_objs = []

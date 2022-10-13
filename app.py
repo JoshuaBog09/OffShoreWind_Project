@@ -1,8 +1,12 @@
 import sys
 import webbrowser
 
+import matplotlib.pyplot as plt
+
 from PyQt5 import QtCore,QtGui, QtWidgets
 from PyQt5 import uic
+
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg
 
 import logo_rc
 
@@ -16,18 +20,27 @@ class MainWindow(QtWidgets.QMainWindow):
         self.pushButton.clicked.connect(self.submit)
         self.pushButton_2.clicked.connect(self.github)
         self.pushButton_3.clicked.connect(self.end)
+        # self.wind_velocity.setText(f"Hello")
+
+        self.plotWidget = FigureCanvasQTAgg(plt.Figure())
+        self.lay = QtWidgets.QVBoxLayout(self.widget)
+        self.lay.setContentsMargins(0, 0, 0, 0)
+        self.lay.addWidget(self.plotWidget)
 
     def submit(self):
-        wind_velocity_0m = float(self.wind_velocity.text())
-        print(wind_velocity_0m)
-        hub_height = float(self.hub_height.text())
-        print(hub_height)
-        diameter = float(self.diameter.text())
-        print(diameter)
-        turbine_cost = float(self.turbine_cost.text())
-        print(turbine_cost)
-        turbine_placement = list(self.turbine_placement.text())
-        print(turbine_placement)
+        try:
+            wind_velocity_0m = float(self.wind_velocity.text())
+            print(wind_velocity_0m)
+            hub_height = float(self.hub_height.text())
+            print(hub_height)
+            diameter = float(self.diameter.text())
+            print(diameter)
+            turbine_cost = float(self.turbine_cost.text())
+            print(turbine_cost)
+            turbine_placement = list(self.turbine_placement.text())
+            print(turbine_placement)
+        except:
+            print(f"meh")
 
     def end(self):
         sys.exit()
