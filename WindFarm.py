@@ -13,6 +13,7 @@ import utils.constants as constants
 # - CHECK THE POWER OUTPUTS
 # - REMOVE CONST VARIABLES IN CONST SHEET TO OFFER USER MORE CHOICES IN THE GUI
 
+
 def windfarm(turbine_diameter: float, hub_height: float, v_reference: float, h_reference: float, request: list):
     """
     :param turbine_diameter: Turbine blade diameter (the diameter of the swept circle area by the blades) [m]
@@ -76,7 +77,7 @@ def windfarm(turbine_diameter: float, hub_height: float, v_reference: float, h_r
 
         def printusefull(self):
             """
-            Prints the usefull(windspeed[m/s^2], power[W], thrust[N] and thrust coeffiecient[-])
+            Prints the usefull(windspeed[m/s^2], power[W], thrust[N] and thrust coefficient[-])
             characteristics of the Turbine(...) instance.
             """
             print(f"{self.localwindspeed=}", f"{self.power=}", f"{self.thrust=}", f"{self.ct=}")
@@ -96,7 +97,7 @@ def windfarm(turbine_diameter: float, hub_height: float, v_reference: float, h_r
         """
         :param h_reference: Height at which the reference velocity is measured
         :param v_reference: Wind velocity at reference height
-        :param h_request: Height of the turbine huvb
+        :param h_request: Height of the turbine hub
         :param h_blend: constant
         :param z_zero: constant
         :param alpha: constant
@@ -172,4 +173,4 @@ def windfarm(turbine_diameter: float, hub_height: float, v_reference: float, h_r
 if __name__ == "__main__":
     request = [2000, 4000, 6000, 10000, 20000]  # requested turbine locations # 1, 1-2, 1-2-3
     # request = [10000, 20000, 30000, 40000, 50000]
-    windfarm(200,150,9,10,request)
+    windfarm(200, 150, 9, 10, request)
