@@ -13,28 +13,28 @@ import utils.constants as constants
 # - CHECK THE POWER OUTPUTS
 # - REMOVE CONST VARIABLES IN CONST SHEET TO OFFER USER MORE CHOICES IN THE GUI
 
-def windfarm(diameter: float, hub_height: float, v_reference: float, h_refrence: float, request: list):
+def windfarm(turbine_diameter: float, hub_height: float, v_reference: float, h_reference: float, request: list):
     """
-    :param diameter:
-    :param hub_height:
-    :param v_reference:
-    :param request:
-    :return:
+    :param turbine_diameter: Turbine blade diameter (the diameter of the swept circle area by the blades) [m]
+    :param hub_height: Height of the turbine hub [m]
+    :param v_reference: Reference velocity [m/s]
+    :param h_reference: Height at which the reference velocity is measured (typically 10m) [m]
+    :param request: The locations of how the turbines will be placed in series [m]
+    :return: Nice data (TBD)
     """
-
 
     class Turbine:
         """
-        Wind turbine class to store and calculate relevant values of the wind turbine.
-        velocity values in the wake are supplied in ranges from the turbine to the next to evaluate the wake and the mixed velocities.
+        Wind turbine class to store and calculate relevant values of the wind turbine
+        velocity values in the wake are supplied in ranges from the turbine to the next to evaluate the wake and the mixed velocities
         """
 
-        def __init__(self, location: float, diameter: float, localwindspeed: float, power: float):
+        def __init__(self, location: float, diameter: float, localwindspeed: float, power: float, v_hub: float):
             """
             :param location: The location of the turbine in meters [m]
             :param diameter: The diameter of the turbine used [m]
             :param localwindspeed: The local windspeed [m/s]
-            :param power: The power[W] of the turbine based on the local windspeed.
+            :param power: The power[W] of the turbine based on the local windspeed
             Note this is not the rated power! however it is derived from it
             """
 
@@ -84,7 +84,7 @@ def windfarm(diameter: float, hub_height: float, v_reference: float, h_refrence:
         def __str__(self):
             return f"WindTurbine instance created with Turbine(location, diameter, localwindspeed, power)"
 
-    def powerfirst(diameter: float, velocity: float):
+    def powerfirst(diameter: float, velocity: float) -> float:
         """
         :param diameter: Diameter of the turbine blades
         :param velocity: Velocity at the turbine hub
@@ -117,31 +117,33 @@ def windfarm(diameter: float, hub_height: float, v_reference: float, h_refrence:
     for i in range(len(request)):
         if i < len(request)-1:
             space = request[i+1]-request[i]
-            if space <= 3*diameter:
+            if space <= 3*turbine_diameter:
                 raise Exception(f"A turbine was placed to close to its neighbour."
                                 f"Distance of {space}m between turbine {i+1} and turbine {i+2} was identified"
                                 f"which is below the required min. 3*diameter")
             spacing.append(space)
         else:
-            spacing.append(10*diameter)
+            spacing.append(10*turbine_diameter)
 
-    #v_hub = get_velocity_at(h_refrence,v_reference,hub_height)  # CHECK TODO
-    #power = powerfirst(diameter, v_hub) # CHECK TODO
+    # v_hub = 6
+    # power = 14_000_000
 
-    v_hub = 12
-    power = 14_000_000
+    v_hub = get_velocity_at(h_reference, v_reference, hub_height)  # CHECK TODO
+    theoretical_power = powerfirst(turbine_diameter, v_hub)  # CHECK TODO
+
+    print(v_hub, theoretical_power, turbine_diameter)
 
     # add the first turbine since it will always be at the start of the turbine chain (special 1 time operations)
-    turbine_objs.append(Turbine(0, diameter, v_hub, power))
+    turbine_objs.append(Turbine(0, turbine_diameter, v_hub, theoretical_power, v_hub))
     turbine_objs[0].printusefull()
 
     # add data points to plotting list
     y = np.insert(turbine_objs[0].supplyrange(0, spacing[0]), 0, v_hub, axis=0)
-    x = np.insert(turbine_objs[0].s_range * turbine_objs[0].diameter, 0, 0, axis=0)
+    x = np.insert(turbine_objs[0].s_range * turbine_diameter, 0, 0, axis=0)
 
     # Evaluation of the velocities in the wake following jensen's model of mixed velocity.
     for location, distance in zip(request, spacing):
-        turbine_objs.append(Turbine(location, diameter, turbine_objs[-1].returnlast(), power))
+        turbine_objs.append(Turbine(location, turbine_diameter, turbine_objs[-1].returnlast(), theoretical_power, v_hub))
         turbine_objs[-1].printusefull()
 
         intermediate = 0
@@ -151,7 +153,7 @@ def windfarm(diameter: float, hub_height: float, v_reference: float, h_refrence:
         turbine_objs[-1].setuto(v_hub * (1 - np.sqrt(intermediate)))
 
         # add data points to plotting list
-        x = np.append(x, turbine_objs[-1].location + (turbine_objs[-1].s_range * turbine_objs[-1].diameter))
+        x = np.append(x, turbine_objs[-1].location + (turbine_objs[-1].s_range * turbine_diameter))
         y = np.append(y, turbine_objs[-1].u_range)
 
     # Plot
@@ -161,13 +163,13 @@ def windfarm(diameter: float, hub_height: float, v_reference: float, h_refrence:
     for turbine in turbine_objs:
         total_power += turbine.power
 
-    farm_efficiency = total_power / (len(turbine_objs)*power)
+    farm_efficiency = total_power / (len(turbine_objs)*theoretical_power)
 
     print(total_power, farm_efficiency)
-    return # Return the data needed in the GUI
+    return total_power, farm_efficiency, theoretical_power
 
 
 if __name__ == "__main__":
     request = [2000, 4000, 6000, 10000, 20000]  # requested turbine locations # 1, 1-2, 1-2-3
     # request = [10000, 20000, 30000, 40000, 50000]
-    windfarm(200,150,12,10,request)
+    windfarm(200,150,9,10,request)
