@@ -10,12 +10,15 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg
 
 import logo_rc
 
+import main
+import windFarm
+
 
 class MainWindow(QtWidgets.QMainWindow):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        uic.loadUi("uis/mainscreen.ui", self)
+        uic.loadUi("uis/mainscreen v5.ui", self)
 
         self.pushButton.clicked.connect(self.submit)
         self.pushButton_2.clicked.connect(self.github)
@@ -28,17 +31,22 @@ class MainWindow(QtWidgets.QMainWindow):
         self.lay.addWidget(self.plotWidget)
 
     def submit(self):
-        wind_velocity_0m = float(self.wind_velocity.text())
-        print(wind_velocity_0m)
+
+
+        v_ref = float(self.v_ref.text())
         hub_height = float(self.hub_height.text())
-        print(hub_height)
         diameter = float(self.diameter.text())
-        print(diameter)
-        turbine_cost = float(self.turbine_cost.text())
-        print(turbine_cost)
         turbine_placement = str(self.turbine_placement.text())
         turbine_placement_list = turbine_placement.split(", ")
-        print(turbine_placement_list)
+        h_ref = float(self.h_ref.text())
+        h_blend = float(self.h_blend.text())
+        print(v_ref)
+
+
+
+        windfarm = windFarm.windfarm(diameter, hub_height, v_ref, h_ref, turbine_placement_list)
+        print(windfarm[0] + " [m/s], " + windfarm[1] + " [-], " + " [W]")
+        return
 
     def end(self):
         sys.exit()

@@ -131,7 +131,8 @@ def windfarm(request: list):
     print(total_power, farm_efficiency)
 
 
-if __name__ == "__main__":
-    request = [2000, 4000, 6000, 10000, 20000]  # requested turbine locations # 1, 1-2, 1-2-3
-    # request = [10000, 20000, 30000, 40000, 50000]
-    windfarm(request)
+# if __name__ == "__main__":
+#     request = [2000, 4000, 6000, 10000, 20000]  # requested turbine locations # 1, 1-2, 1-2-3
+#     # request = [10000, 20000, 30000, 40000, 50000]
+#     windfarm(request)
+

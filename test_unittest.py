@@ -1,5 +1,5 @@
 import unittest
-from WindFarm import windfarm
+from windFarm import windfarm
 
 
 class MyTestCase(unittest.TestCase):
