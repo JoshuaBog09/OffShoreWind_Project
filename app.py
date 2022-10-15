@@ -31,21 +31,20 @@ class MainWindow(QtWidgets.QMainWindow):
         self.lay.addWidget(self.plotWidget)
 
     def submit(self):
-
-
+        print("kikker")
         v_ref = float(self.v_ref.text())
+        print(v_ref)
         hub_height = float(self.hub_height.text())
         diameter = float(self.diameter.text())
         turbine_placement = str(self.turbine_placement.text())
         turbine_placement_list = turbine_placement.split(", ")
         h_ref = float(self.h_ref.text())
-        h_blend = float(self.h_blend.text())
-        print(v_ref)
-
-
+        print(h_ref)
+        # h_blend = float(self.h_blend.text())
 
         windfarm = windFarm.windfarm(diameter, hub_height, v_ref, h_ref, turbine_placement_list)
-        print(windfarm[0] + " [m/s], " + windfarm[1] + " [-], " + " [W]")
+        print(windfarm)
+        # print(windfarm[0] + " [m/s], " + windfarm[1] + " [-], " + " [W]")
         return
 
     def end(self):

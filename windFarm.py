@@ -170,7 +170,7 @@ def windfarm(turbine_diameter: float, hub_height: float, v_reference: float, h_r
     return total_power, farm_efficiency, theoretical_power
 
 
-if __name__ == "__main__":
-    request = [2000, 4000, 6000, 10000, 20000]  # requested turbine locations # 1, 1-2, 1-2-3
-    # request = [10000, 20000, 30000, 40000, 50000]
-    windfarm(200, 150, 9, 10, request)
+# if __name__ == "__main__":
+#     request = [2000, 4000, 6000, 10000, 20000]  # requested turbine locations # 1, 1-2, 1-2-3
+#     # request = [10000, 20000, 30000, 40000, 50000]
+#     windfarm(200, 150, 9, 10, request)
