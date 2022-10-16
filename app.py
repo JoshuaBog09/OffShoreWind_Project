@@ -18,7 +18,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        uic.loadUi("uis/mainscreen v5.ui", self)
+        uic.loadUi("uis/mainscreen v6.ui", self)
 
         self.pushButton.clicked.connect(self.submit)
         self.pushButton_2.clicked.connect(self.github)
@@ -43,9 +43,12 @@ class MainWindow(QtWidgets.QMainWindow):
         # h_blend = float(self.h_blend.text())
 
         windfarm = windFarm.windfarm(diameter, hub_height, v_ref, h_ref, turbine_placement_list)
-        print(windfarm)
+        print(windfarm[0])
         # print(windfarm[0] + " [m/s], " + windfarm[1] + " [-], " + " [W]")
-        return
+
+        self.farm_power.setText(str(windfarm[0]))
+        self.farm_eff.setText(str(windfarm[1]))
+        self.power_first_turbine.setText(str(windfarm[2]))
 
     def end(self):
         sys.exit()

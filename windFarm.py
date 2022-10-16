@@ -166,7 +166,7 @@ def windfarm(turbine_diameter: float, hub_height: float, v_reference: float, h_r
 
     farm_efficiency = total_power / (len(turbine_objs)*theoretical_power)
 
-    print(total_power, farm_efficiency)
+    # print(total_power, farm_efficiency)
     return total_power, farm_efficiency, theoretical_power
 
 
@@ -174,3 +174,5 @@ def windfarm(turbine_diameter: float, hub_height: float, v_reference: float, h_r
 #     request = [2000, 4000, 6000, 10000, 20000]  # requested turbine locations # 1, 1-2, 1-2-3
 #     # request = [10000, 20000, 30000, 40000, 50000]
 #     windfarm(200, 150, 9, 10, request)
+
+windfarm(100, 200, 10, 10, [1000, 2000])
