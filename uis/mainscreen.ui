@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1181</width>
-    <height>730</height>
+    <width>1452</width>
+    <height>854</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -312,6 +312,42 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;For wind velocity at hubheigth the power law is used with a reference height of 60 meters and an exponent of 0.11. &lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;The velocity is used as initial velocity. This is reduced after each wind turbine according to the Jensen model. The effect of velocity is translated to the power yield of the array of wind turbines. In the Jensen model it is required that all wind turbines have minimal spacing of 3 turbine rotor diameters. The assumption is made that the wake expansion factor is 0.05.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QGroupBox" name="groupBox_5">
+               <property name="styleSheet">
+                <string notr="true">QGroupBox {
+	border: 2px solid  rgb(217, 217, 217);
+	border-radius: 6px;
+	background: rgba(0, 0, 0, 0);
+	margin: 0.5em;
+	font: 14px Leelawadee UI;
+}
+
+QGroupBox::title {
+	subcontrol-origin: margin;
+	top: 1px;
+    left: 16px;
+	color: rgb(0, 0, 0);
+}</string>
+               </property>
+               <property name="title">
+                <string>GroupBox</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_8">
+                <item>
+                 <widget class="QTextBrowser" name="error_field">
+                  <property name="html">
+                   <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </widget>
              </item>
             </layout>
@@ -648,7 +684,7 @@ color: rgb(0, 255, 127);</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1181</width>
+     <width>1452</width>
      <height>26</height>
     </rect>
    </property>
