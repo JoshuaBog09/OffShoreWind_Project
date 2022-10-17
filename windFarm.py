@@ -141,9 +141,10 @@ def windfarm(turbine_diameter: float, hub_height: float, v_reference: float, h_r
         error_msg = (f"There is not enough ground-tip clearance. Increase the clearance to at least 30 meters")
         return error_msg, False
 
-    if hub_height > 60:
+    if h_reference > 60:
         error_msg = (f"The reference height must be below 60 meters")
         return error_msg, False
+
     v_hub = get_velocity_at(h_reference, v_reference, hub_height)  # CHECK TODO
     theoretical_power = powerfirst(turbine_diameter, v_hub)  # CHECK TODO
 
