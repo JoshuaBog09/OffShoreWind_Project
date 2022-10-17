@@ -55,6 +55,8 @@ class MainWindow(QtWidgets.QMainWindow):
 
             self.fig, self.ax = plt.subplots()
             self.ax.plot(windfarm_var[4], windfarm_var[5])
+            self.ax.set_ylabel("Wake velocity in m/s")
+            self.ax.set_xlabel("Location in m")
             self.plotWidget.deleteLater()
             self.plotWidget = FigureCanvasQTAgg(self.fig)
             self.lay.addWidget(self.plotWidget)
