@@ -25,14 +25,12 @@ class MainWindow(QtWidgets.QMainWindow):
         # self.wind_velocity.setText(f"Hello")
 
         self.plotWidget = FigureCanvasQTAgg(plt.Figure())
-        self.lay = QtWidgets.QVBoxLayout(self.widget)
+        self.lay = QtWidgets.QVBoxLayout(self.plot_area)
         self.lay.setContentsMargins(0, 0, 0, 0)
         self.lay.addWidget(self.plotWidget)
 
     def submit(self):
-        print("kikker")
         v_ref = float(self.v_ref.text())
-
         hub_height = float(self.hub_height.text())
         diameter = float(self.diameter.text())
         turbine_placement = str(self.turbine_placement.text())
@@ -40,21 +38,25 @@ class MainWindow(QtWidgets.QMainWindow):
         turbine_placement_list = [float(ele) for ele in turbine_placement_list]
         h_ref = float(self.h_ref.text())
         c_f = float(self.C_f.text())
-        print(h_ref)
-        print(v_ref)
-        print(hub_height)
-        print(diameter)
-        print(turbine_placement_list)
+        # print(h_ref)
+        # print(v_ref)
+        # print(hub_height)
+        # print(diameter)
+        # print(turbine_placement_list)
         # h_blend = float(self.h_blend.text())
 
         windfarm_var = windfarm(diameter, hub_height, v_ref, h_ref, turbine_placement_list, c_f)
-        print(windfarm_var)
-        print(f"{windfarm_var[0]} [MW], {windfarm_var[1]} [-],  {windfarm_var[2]} [MW]")
 
         self.farm_power.setText(str(round(windfarm_var[0]/10**6, 3)))
         self.farm_eff.setText(str(round(windfarm_var[1], 3)))
         self.power_first_turbine.setText(str(round(windfarm_var[2]/10**6, 3)))
         self.energy_yield_yr.setText(str(round(windfarm_var[3]/10**6, 3)))
+
+        self.fig, self.ax = plt.subplots()
+        self.ax.plot(windfarm_var[4], windfarm_var[5])
+        self.plotWidget.deleteLater()
+        self.plotWidget = FigureCanvasQTAgg(self.fig)
+        self.lay.addWidget(self.plotWidget)
 
     def end(self):
         sys.exit()

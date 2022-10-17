@@ -60,7 +60,7 @@ def windfarm(turbine_diameter: float, hub_height: float, v_reference: float, h_r
             :param last: The location of the next turbine
             :return: The velocity list for the specified range for the requested instance
             """
-            self.s_range = np.linspace(first - self.location + (self.diameter * 3 + 1), last - self.location, 10000,
+            self.s_range = np.linspace(first - self.location + (self.diameter * 3 + 1), last - self.location, 1000,
                                        endpoint=True) / self.diameter
             self.u_range = v_hub * (1 - ((1 - math.sqrt(1 - self.ct)) / (1 + 2 * self.s_range * constants.alpha) ** 2))
             return self.u_range
@@ -122,12 +122,19 @@ def windfarm(turbine_diameter: float, hub_height: float, v_reference: float, h_r
         if i < len(request) - 1:
             space = request[i + 1] - request[i]
             if space <= 3 * turbine_diameter:
-                raise Exception(f"A turbine was placed to close to its neighbour."
-                                f"Distance of {space}m between turbine {i + 1} and turbine {i + 2} was identified"
-                                f"which is below the required min. 3*diameter")
+                error_msg = (f"A turbine was placed to close to its neighbour."
+                             f"Distance of {space}m between turbine {i + 1} and turbine {i + 2} was identified"
+                             f"which is below the required min. 3*diameter")
+                return error_msg, 0
+                # raise Exception(f"A turbine was placed to close to its neighbour."
+                #                 f"Distance of {space}m between turbine {i + 1} and turbine {i + 2} was identified"
+                #                 f"which is below the required min. 3*diameter")
             spacing.append(space)
         else:
             spacing.append(10 * turbine_diameter)
+
+    print(request)
+    print(spacing)
 
     # v_hub = 6
     # power = 14_000_000
@@ -142,7 +149,7 @@ def windfarm(turbine_diameter: float, hub_height: float, v_reference: float, h_r
     turbine_objs[0].printusefull()
 
     # add data points to plotting list
-    y = np.insert(turbine_objs[0].supplyrange(0, spacing[0]), 0, v_hub, axis=0)
+    y = np.insert(turbine_objs[0].supplyrange(0, request[0]), 0, v_hub, axis=0)
     x = np.insert(turbine_objs[0].s_range * turbine_diameter, 0, 0, axis=0)
 
     # Evaluation of the velocities in the wake following jensen's model of mixed velocity.
@@ -171,11 +178,4 @@ def windfarm(turbine_diameter: float, hub_height: float, v_reference: float, h_r
     farm_efficiency = total_power / (len(turbine_objs) * theoretical_power)
     energy_yr = total_power * 365 * 24 * capacity_factor
     # print(total_power, farm_efficiency)
-    return total_power, farm_efficiency, theoretical_power, energy_yr, x, y
-
-# if __name__ == "__main__":
-#     request = [2000, 4000, 6000, 10000, 20000]  # requested turbine locations # 1, 1-2, 1-2-3
-#     # request = [10000, 20000, 30000, 40000, 50000]
-#     windfarm(200, 150, 9, 10, request)
-
-# windfarm(100, 200, 10, 10, [1000, 2000])
+    return total_power, farm_efficiency, theoretical_power, energy_yr, x, y, 1
