@@ -145,7 +145,7 @@ QGroupBox::title {
                 <item>
                  <widget class="QLabel" name="label_7">
                   <property name="text">
-                   <string>Reference height (meters):</string>
+                   <string>Reference height (meters) (must be below 60 meters):</string>
                   </property>
                  </widget>
                 </item>
