@@ -30,6 +30,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.lay.addWidget(self.plotWidget)
 
     def submit(self):
+        self.error_field.setText("")
         v_ref = float(self.v_ref.text())
         hub_height = float(self.hub_height.text())
         diameter = float(self.diameter.text())
@@ -46,7 +47,7 @@ class MainWindow(QtWidgets.QMainWindow):
         # h_blend = float(self.h_blend.text())
 
         windfarm_var = windfarm(diameter, hub_height, v_ref, h_ref, turbine_placement_list, c_f)
-        if windfarm_var[-1] == 1:
+        if windfarm_var[-1]:
             self.farm_power.setText(str(round(windfarm_var[0]/10**6, 3)))
             self.farm_eff.setText(str(round(windfarm_var[1], 3)))
             self.power_first_turbine.setText(str(round(windfarm_var[2]/10**6, 3)))
@@ -57,7 +58,7 @@ class MainWindow(QtWidgets.QMainWindow):
             self.plotWidget.deleteLater()
             self.plotWidget = FigureCanvasQTAgg(self.fig)
             self.lay.addWidget(self.plotWidget)
-        elif windfarm_var[-1] == 0:
+        elif not windfarm_var[-1]:
             self.error_field.setText(windfarm_var[0])
 
     def end(self):

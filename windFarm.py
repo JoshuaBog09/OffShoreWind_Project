@@ -123,9 +123,9 @@ def windfarm(turbine_diameter: float, hub_height: float, v_reference: float, h_r
             space = request[i + 1] - request[i]
             if space <= 3 * turbine_diameter:
                 error_msg = (f"A turbine was placed to close to its neighbour."
-                             f"Distance of {space}m between turbine {i + 1} and turbine {i + 2} was identified"
+                             f"Distance of {space}m between turbine {i + 2} and turbine {i + 3} was identified"
                              f"which is below the required min. 3*diameter")
-                return error_msg, 0
+                return error_msg, False
                 # raise Exception(f"A turbine was placed to close to its neighbour."
                 #                 f"Distance of {space}m between turbine {i + 1} and turbine {i + 2} was identified"
                 #                 f"which is below the required min. 3*diameter")
@@ -133,8 +133,6 @@ def windfarm(turbine_diameter: float, hub_height: float, v_reference: float, h_r
         else:
             spacing.append(10 * turbine_diameter)
 
-    print(request)
-    print(spacing)
 
     # v_hub = 6
     # power = 14_000_000
@@ -142,7 +140,7 @@ def windfarm(turbine_diameter: float, hub_height: float, v_reference: float, h_r
     v_hub = get_velocity_at(h_reference, v_reference, hub_height)  # CHECK TODO
     theoretical_power = powerfirst(turbine_diameter, v_hub)  # CHECK TODO
 
-    print(v_hub, theoretical_power, turbine_diameter)
+    # print(v_hub, theoretical_power, turbine_diameter)
 
     # add the first turbine since it will always be at the start of the turbine chain (special 1 time operations)
     turbine_objs.append(Turbine(0, turbine_diameter, v_hub, theoretical_power, v_hub))
@@ -169,8 +167,8 @@ def windfarm(turbine_diameter: float, hub_height: float, v_reference: float, h_r
         y = np.append(y, turbine_objs[-1].u_range)
 
     # Plot
-    plt.plot(x, y)
-    plt.show()
+    # plt.plot(x, y)
+    # plt.show()
 
     for turbine in turbine_objs:
         total_power += turbine.power
@@ -178,4 +176,4 @@ def windfarm(turbine_diameter: float, hub_height: float, v_reference: float, h_r
     farm_efficiency = total_power / (len(turbine_objs) * theoretical_power)
     energy_yr = total_power * 365 * 24 * capacity_factor
     # print(total_power, farm_efficiency)
-    return total_power, farm_efficiency, theoretical_power, energy_yr, x, y, 1
+    return total_power, farm_efficiency, theoretical_power, energy_yr, x, y, True
