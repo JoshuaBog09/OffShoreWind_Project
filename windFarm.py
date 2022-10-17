@@ -8,13 +8,15 @@ import math
 # custom libraries
 import utils.constants as constants
 
+
 # TODO
 # - ADD CHECKS FOR DIAMETER < HUB_HEIGHT*FACTOR
 # - CHECK THE POWER OUTPUTS
 # - REMOVE CONST VARIABLES IN CONST SHEET TO OFFER USER MORE CHOICES IN THE GUI
 
 
-def windfarm(turbine_diameter: float, hub_height: float, v_reference: float, h_reference: float, request: list):
+def windfarm(turbine_diameter: float, hub_height: float, v_reference: float, h_reference: float, request: list,
+             capacity_factor: float):
     """
     :param turbine_diameter: Turbine blade diameter (the diameter of the swept circle area by the blades) [m]
     :param hub_height: Height of the turbine hub [m]
@@ -46,11 +48,11 @@ def windfarm(turbine_diameter: float, hub_height: float, v_reference: float, h_r
             self.location = location
             self.diameter = diameter
             self.localwindspeed = localwindspeed
-            self.power = power * (localwindspeed/v_hub)**3
-            self.rotorspeed = (2/3)*localwindspeed
+            self.power = power * (localwindspeed / v_hub) ** 3
+            self.rotorspeed = (2 / 3) * localwindspeed
             self.thrust = self.power / self.rotorspeed
             # Thrust coefficient
-            self.ct = self.thrust / (0.5*constants.rho*(localwindspeed**2)*math.pi*((diameter/2)**2))
+            self.ct = self.thrust / (0.5 * constants.rho * (localwindspeed ** 2) * math.pi * ((diameter / 2) ** 2))
 
         def supplyrange(self, first, last):
             """
@@ -58,7 +60,8 @@ def windfarm(turbine_diameter: float, hub_height: float, v_reference: float, h_r
             :param last: The location of the next turbine
             :return: The velocity list for the specified range for the requested instance
             """
-            self.s_range = np.linspace(first-self.location+(self.diameter * 3 + 1), last-self.location, 10000, endpoint=True) / self.diameter
+            self.s_range = np.linspace(first - self.location + (self.diameter * 3 + 1), last - self.location, 10000,
+                                       endpoint=True) / self.diameter
             self.u_range = v_hub * (1 - ((1 - math.sqrt(1 - self.ct)) / (1 + 2 * self.s_range * constants.alpha) ** 2))
             return self.u_range
 
@@ -91,7 +94,7 @@ def windfarm(turbine_diameter: float, hub_height: float, v_reference: float, h_r
         :param velocity: Velocity at the turbine hub
         :return: Power of the first turbine based on theoretical performance * efficiency factor of 80%
         """
-        return (16/27)*(1/8)*constants.rho*math.pi*(diameter**2)*(velocity**3)*0.8
+        return (16 / 27) * (1 / 8) * constants.rho * math.pi * (diameter ** 2) * (velocity ** 3) * 0.8
 
     def get_velocity_at(h_reference, v_reference, h_request, h_blend=60, z_zero=0.0002, alpha=0.11):
         """
@@ -116,15 +119,15 @@ def windfarm(turbine_diameter: float, hub_height: float, v_reference: float, h_r
 
     spacing = []
     for i in range(len(request)):
-        if i < len(request)-1:
-            space = request[i+1]-request[i]
-            if space <= 3*turbine_diameter:
+        if i < len(request) - 1:
+            space = request[i + 1] - request[i]
+            if space <= 3 * turbine_diameter:
                 raise Exception(f"A turbine was placed to close to its neighbour."
-                                f"Distance of {space}m between turbine {i+1} and turbine {i+2} was identified"
+                                f"Distance of {space}m between turbine {i + 1} and turbine {i + 2} was identified"
                                 f"which is below the required min. 3*diameter")
             spacing.append(space)
         else:
-            spacing.append(10*turbine_diameter)
+            spacing.append(10 * turbine_diameter)
 
     # v_hub = 6
     # power = 14_000_000
@@ -144,7 +147,8 @@ def windfarm(turbine_diameter: float, hub_height: float, v_reference: float, h_r
 
     # Evaluation of the velocities in the wake following jensen's model of mixed velocity.
     for location, distance in zip(request, spacing):
-        turbine_objs.append(Turbine(location, turbine_diameter, turbine_objs[-1].returnlast(), theoretical_power, v_hub))
+        turbine_objs.append(
+            Turbine(location, turbine_diameter, turbine_objs[-1].returnlast(), theoretical_power, v_hub))
         turbine_objs[-1].printusefull()
 
         intermediate = 0
@@ -164,15 +168,14 @@ def windfarm(turbine_diameter: float, hub_height: float, v_reference: float, h_r
     for turbine in turbine_objs:
         total_power += turbine.power
 
-    farm_efficiency = total_power / (len(turbine_objs)*theoretical_power)
-
+    farm_efficiency = total_power / (len(turbine_objs) * theoretical_power)
+    energy_yr = total_power * 365 * 24 * capacity_factor
     # print(total_power, farm_efficiency)
-    return total_power, farm_efficiency, theoretical_power
-
+    return total_power, farm_efficiency, theoretical_power, energy_yr
 
 # if __name__ == "__main__":
 #     request = [2000, 4000, 6000, 10000, 20000]  # requested turbine locations # 1, 1-2, 1-2-3
 #     # request = [10000, 20000, 30000, 40000, 50000]
 #     windfarm(200, 150, 9, 10, request)
 
-windfarm(100, 200, 10, 10, [1000, 2000])
+# windfarm(100, 200, 10, 10, [1000, 2000])

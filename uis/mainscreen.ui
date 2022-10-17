@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1181</width>
-    <height>664</height>
+    <height>730</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -135,12 +135,32 @@ QGroupBox::title {
                    <string notr="true">font: 12px Leelawadee UI;</string>
                   </property>
                   <property name="text">
-                   <string>Ground wind  velocity (m/s):</string>
+                   <string>Average reference velocity (m/s):</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="wind_velocity"/>
+                 <widget class="QLineEdit" name="v_ref"/>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_7">
+                  <property name="text">
+                   <string>Reference height (meters):</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="h_ref"/>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_13">
+                  <property name="text">
+                   <string>Capacity factor</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="C_f"/>
                 </item>
                </layout>
               </widget>
@@ -236,7 +256,7 @@ QGroupBox::title {
                    <string notr="true">font: 12px Leelawadee UI;</string>
                   </property>
                   <property name="text">
-                   <string>Turbine placement (as list [1000, 2000], zero included by standard):</string>
+                   <string>Turbine placement (as list: 1000, 2000, ...) (the first turnine is there by default)</string>
                   </property>
                  </widget>
                 </item>
@@ -282,20 +302,17 @@ QGroupBox::title {
               </widget>
              </item>
              <item>
-              <widget class="QTextBrowser" name="textBrowser"/>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_7">
-               <property name="styleSheet">
-                <string notr="true">font: 12px Leelawadee UI;</string>
-               </property>
-               <property name="text">
-                <string>Log information</string>
+              <widget class="QTextBrowser" name="textBrowser">
+               <property name="html">
+                <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;This application aims to determine the minimal efficiency of a two dimensional wind farm. To get the minimal efficiency the wind turbines are placed in one row so that the wake effect (disturbance of flow after a turbine) on each turbine is maximal. &lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;For wind velocity at hubheigth the power law is used with a reference height of 60 meters and an exponent of 0.11. &lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;The velocity is used as initial velocity. This is reduced after each wind turbine according to the Jensen model. The effect of velocity is translated to the power yield of the array of wind turbines. In the Jensen model it is required that all wind turbines have minimal spacing of 3 turbine rotor diameters. The assumption is made that the wake expansion factor is 0.05.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
               </widget>
-             </item>
-             <item>
-              <widget class="QTextBrowser" name="textBrowser_2"/>
              </item>
             </layout>
            </widget>
@@ -512,40 +529,16 @@ QGroupBox::title {
           <string>Outputs</string>
          </property>
          <layout class="QGridLayout" name="gridLayout">
-          <item row="2" column="1">
-           <widget class="QLineEdit" name="lineEdit_2">
+          <item row="2" column="0">
+           <widget class="QLineEdit" name="power_first_turbine">
+            <property name="acceptDrops">
+             <bool>true</bool>
+            </property>
             <property name="readOnly">
              <bool>true</bool>
             </property>
             <property name="placeholderText">
-             <string>in W</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_9">
-            <property name="styleSheet">
-             <string notr="true">font: 12px Leelawadee UI;</string>
-            </property>
-            <property name="text">
-             <string>Power of first turbine:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="1">
-           <widget class="QLineEdit" name="lineEdit_4">
-            <property name="readOnly">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="1">
-           <widget class="QLabel" name="label_12">
-            <property name="styleSheet">
-             <string notr="true">font: 12px Leelawadee UI;</string>
-            </property>
-            <property name="text">
-             <string>Total estimated energy:</string>
+             <string>in MW</string>
             </property>
            </widget>
           </item>
@@ -559,13 +552,23 @@ QGroupBox::title {
             </property>
            </widget>
           </item>
-          <item row="2" column="0">
-           <widget class="QLineEdit" name="lineEdit">
-            <property name="acceptDrops">
-             <bool>true</bool>
-            </property>
+          <item row="2" column="1">
+           <widget class="QLineEdit" name="farm_power">
             <property name="readOnly">
              <bool>true</bool>
+            </property>
+            <property name="placeholderText">
+             <string>in MW</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_9">
+            <property name="styleSheet">
+             <string notr="true">font: 12px Leelawadee UI;</string>
+            </property>
+            <property name="text">
+             <string>Power of first turbine (in MW):</string>
             </property>
            </widget>
           </item>
@@ -575,12 +578,32 @@ QGroupBox::title {
              <string notr="true">font: 12px Leelawadee UI;</string>
             </property>
             <property name="text">
-             <string>Total farm power:</string>
+             <string>Total farm power (in MW):</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QLabel" name="label_12">
+            <property name="styleSheet">
+             <string notr="true">font: 12px Leelawadee UI;</string>
+            </property>
+            <property name="text">
+             <string>Estimated yearly energy (in MWh):</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="1">
+           <widget class="QLineEdit" name="energy_yield_yr">
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+            <property name="placeholderText">
+             <string>in MWh</string>
             </property>
            </widget>
           </item>
           <item row="4" column="0">
-           <widget class="QLineEdit" name="lineEdit_3">
+           <widget class="QLineEdit" name="farm_eff">
             <property name="readOnly">
              <bool>true</bool>
             </property>

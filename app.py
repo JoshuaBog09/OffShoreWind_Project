@@ -10,15 +10,14 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg
 
 import logo_rc
 
-import main
-import windFarm
+from windFarm import windfarm
 
 
 class MainWindow(QtWidgets.QMainWindow):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        uic.loadUi("uis/mainscreen v6.ui", self)
+        uic.loadUi("uis/mainscreen.ui", self)
 
         self.pushButton.clicked.connect(self.submit)
         self.pushButton_2.clicked.connect(self.github)
@@ -33,22 +32,29 @@ class MainWindow(QtWidgets.QMainWindow):
     def submit(self):
         print("kikker")
         v_ref = float(self.v_ref.text())
-        print(v_ref)
+
         hub_height = float(self.hub_height.text())
         diameter = float(self.diameter.text())
         turbine_placement = str(self.turbine_placement.text())
         turbine_placement_list = turbine_placement.split(", ")
+        turbine_placement_list = [float(ele) for ele in turbine_placement_list]
         h_ref = float(self.h_ref.text())
+        c_f = float(self.C_f.text())
         print(h_ref)
+        print(v_ref)
+        print(hub_height)
+        print(diameter)
+        print(turbine_placement_list)
         # h_blend = float(self.h_blend.text())
 
-        windfarm = windFarm.windfarm(diameter, hub_height, v_ref, h_ref, turbine_placement_list)
-        print(windfarm[0])
-        # print(windfarm[0] + " [m/s], " + windfarm[1] + " [-], " + " [W]")
+        windfarm_var = windfarm(diameter, hub_height, v_ref, h_ref, turbine_placement_list, c_f)
+        print(windfarm_var)
+        print(f"{windfarm_var[0]} [MW], {windfarm_var[1]} [-],  {windfarm_var[2]} [MW]")
 
-        self.farm_power.setText(str(windfarm[0]))
-        self.farm_eff.setText(str(windfarm[1]))
-        self.power_first_turbine.setText(str(windfarm[2]))
+        self.farm_power.setText(str(round(windfarm_var[0]/10**6, 3)))
+        self.farm_eff.setText(str(round(windfarm_var[1], 3)))
+        self.power_first_turbine.setText(str(round(windfarm_var[2]/10**6, 3)))
+        self.energy_yield_yr.setText(str(round(windfarm_var[3]/10**6, 3)))
 
     def end(self):
         sys.exit()
