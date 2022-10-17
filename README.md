@@ -16,13 +16,12 @@ pip install requests
 
 ___
 ## Progress and task devsion
-| Task | Done by | Time | Current status         | Checked | Completed | 
-|------|--------|------|------------------------|---------|-----------|
-| GUI | Joshua | | Exploring/ in progress | | |
-| Wake effect | Joshua | +/-6h | Completed              | :x: | :x: |
-| Weather data |        | |                        | | |
-| Turbine data |        | |                        | | |
-| Poster |        | |                        | | |
-| ... |        | |                        | | |
+| Task                   | Done by           | Current status  | Checked            | Completed          | 
+|------------------------|-------------------|-----------------|--------------------|--------------------|
+| GUI                    | Joshua and Roel   | Near completion |                    |                    |
+| Wake effect model      | Joshua            | Completed       | :heavy_check_mark: | :heavy_check_mark: |
+| Velocity profile model | Joshua and Wessel | Completed       | :heavy_check_mark: | :heavy_check_mark: |
+| Poster                 | Wessel and Mees   |                 |                    |                    |
+| ...                    |                   |                 |                    |                    |
 ___
 ## Sources
