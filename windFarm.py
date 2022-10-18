@@ -9,12 +9,6 @@ import math
 import utils.constants as constants
 
 
-# TODO
-# - ADD CHECKS FOR DIAMETER < HUB_HEIGHT*FACTOR
-# - CHECK THE POWER OUTPUTS
-# - REMOVE CONST VARIABLES IN CONST SHEET TO OFFER USER MORE CHOICES IN THE GUI
-
-
 def windfarm(turbine_diameter: float, hub_height: float, v_reference: float, h_reference: float, request: list,
              capacity_factor: float):
     """
@@ -147,8 +141,8 @@ def windfarm(turbine_diameter: float, hub_height: float, v_reference: float, h_r
         error_msg = (f"The reference height must be below 60 meters")
         return error_msg, False
 
-    v_hub = get_velocity_at(h_reference, v_reference, hub_height)  # CHECK TODO
-    theoretical_power = powerfirst(turbine_diameter, v_hub)  # CHECK TODO
+    v_hub = get_velocity_at(h_reference, v_reference, hub_height)
+    theoretical_power = powerfirst(turbine_diameter, v_hub)
 
     # print(v_hub, theoretical_power, turbine_diameter)
 
