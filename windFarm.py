@@ -109,6 +109,13 @@ def windfarm(turbine_diameter: float, hub_height: float, v_reference: float, h_r
         return velocities[int(np.where(heightrange == h_request)[0])]
 
     ## -- Main running code -- ##
+    if capacity_factor>1:
+        error_msg = (f"This is physically impossible. Please insert a capacity factor between 0 and 1")
+        return error_msg, False
+
+    if capacity_factor<0:
+        error_msg = (f"This is physically impossible. Please insert a capacity factor between 0 and 1")
+        return error_msg, False
 
     turbine_objs = []
     total_power = 0

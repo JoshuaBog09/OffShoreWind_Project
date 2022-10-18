@@ -207,7 +207,7 @@ QGroupBox::title {
                    <string notr="true">font: 12px Leelawadee UI;</string>
                   </property>
                   <property name="text">
-                   <string>Diameter of turbine blades (Hub height - Turbine radius &gt; 30m):</string>
+                   <string>Rotor diameter (Hub height - Turbine radius &gt; 30m):</string>
                   </property>
                  </widget>
                 </item>
@@ -317,9 +317,20 @@ QGroupBox::title {
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;This application aims to determine the minimal efficiency of a two dimensional wind farm. To get the minimal efficiency the wind turbines are placed in one row so that the wake effect (disturbance of flow after a turbine) on each turbine is maximal. &lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;For wind velocity at hubheigth the power law is used with a reference height of 60 meters and an exponent of 0.11. &lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;The velocity is used as initial velocity. This is reduced after each wind turbine according to the Jensen model. The effect of velocity is translated to the power yield of the array of wind turbines. In the Jensen model it is required that all wind turbines have minimal spacing of 3 turbine rotor diameters. The assumption is made that the wake expansion factor is 0.05.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;This application aims to determine the minimal efficiency, power and enegy output of a two dimensional wind farm. To get the minimal efficiency the wind turbines are placed in one row so that the wake effect (disturbance of flow after a turbine) on each turbine is maximal. &lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;The application first determines the velocity at the hub height. This is calculated with a reference velocity at a reference height below 60 meters. These imputs are are processed with the log-law and power law for below and above a blending height of 60 meters respectively. In the log-law a surface roughness of 0.0002 is taken, and in the power-law an exponent of 0.11 is used. &lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;This hub height velocity is the initial velocity. After each turbine that is placed, the velocity decreases according to the Jensen model. The effect of velocity is translated to the power yield of the array of wind turbines. In the Jensen model it is required that all wind turbines have minimal spacing of 3 turbine rotor diameters. The assumption is made that the wake expansion factor is 0.05.&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Typical value ranges are:&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;     - Average reference velocity -&amp;gt; 5 to 10 m/s&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;     - Reference height -&amp;gt; 10 m&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;     - Capacity factor -&amp;gt; 0.45 for the North sea&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;     - Hub height -&amp;gt; 100 to 150 m&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;     - Rotor diameter -&amp;gt; 120 m &lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;     - Turbine placement -&amp;gt; 7-10 rotor diameters&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
               </widget>
              </item>
