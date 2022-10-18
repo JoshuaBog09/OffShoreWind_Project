@@ -71,16 +71,16 @@ class MainWindow(QtWidgets.QMainWindow):
                 # Storing data for the history
                 self.local_history.append(
                     {
-                        "V_ref"             : v_ref,
-                        "H_ref"             : h_ref,
-                        "Cf"                : c_f,
-                        "Hub_height"        : hub_height,
-                        "Diameter"          : diameter,
-                        "Turbine_placement" : turbine_placement_list,
-                        "Farm_power"        : windfarm_var[0],
-                        "Farm_efficiency"   : windfarm_var[1],
-                        "Power_first"       : windfarm_var[2],
-                        "Energy_yield"      : windfarm_var[3],
+                        "V_ref[m/s]"            : v_ref,
+                        "H_ref[m]"              : h_ref,
+                        "Cf[-]"                 : c_f,
+                        "Hub_height[m]"         : hub_height,
+                        "Diameter[m]"           : diameter,
+                        "Turbine_placement[m]"  : turbine_placement_list,
+                        "Farm_power[W]"         : windfarm_var[0],
+                        "Farm_efficiency[-]"    : windfarm_var[1],
+                        "Power_first[W]"        : windfarm_var[2],
+                        "Energy_yield[Wh]"      : windfarm_var[3],
                     }
                 )
 

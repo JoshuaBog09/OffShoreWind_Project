@@ -135,6 +135,11 @@ def windfarm(turbine_diameter: float, hub_height: float, v_reference: float, h_r
             spacing.append(space)
         else:
             spacing.append(10 * turbine_diameter)
+    if request[0] <= 3 * turbine_diameter:
+        error_msg = (f"A turbine was placed to close to its neighbour."
+                     f"Distance of {request[0]}m between turbine {1} and turbine {2} was identified"
+                     f"which is below the required min. 3*diameter")
+        return error_msg, False
 
 
     # v_hub = 6
@@ -153,6 +158,7 @@ def windfarm(turbine_diameter: float, hub_height: float, v_reference: float, h_r
 
     # print(v_hub, theoretical_power, turbine_diameter)
 
+    # The first turbine is assumed to ALWAYS be at zero (This is not a variable in the code), it will always be placed at zero
     # add the first turbine since it will always be at the start of the turbine chain (special 1 time operations)
     turbine_objs.append(Turbine(0, turbine_diameter, v_hub, theoretical_power, v_hub))
     turbine_objs[0].printusefull()
