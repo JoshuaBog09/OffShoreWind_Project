@@ -60,8 +60,12 @@ class MainWindow(QtWidgets.QMainWindow):
                 self.power_first_turbine.setText(str(round(windfarm_var[2]/10**6, 3)))
                 self.energy_yield_yr.setText(str(round(windfarm_var[3]/10**6, 3)))
 
+                turbine_placement_list.insert(0, 0)
+
                 self.fig, self.ax = plt.subplots()
                 self.ax.plot(windfarm_var[4], windfarm_var[5])
+                ymin, ymax = self.ax.get_ylim()
+                self.ax.vlines(x=turbine_placement_list[:], ymin=ymin, ymax=ymax, colors='teal', ls='--', lw=1)
                 self.ax.set_ylabel("Wake velocity in m/s")
                 self.ax.set_xlabel("Location in m")
                 self.plotWidget.deleteLater()
