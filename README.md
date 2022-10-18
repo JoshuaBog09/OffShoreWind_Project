@@ -4,7 +4,7 @@ OffshoreWind energy project (TuDelft)
 ## Getting started
 First clone the repository using: <br>
 ``git clone https://github.com/JoshuaBog09/OffShoreWind_Project.git`` (bash)<br>
-or ``gh repo clone JoshuaBog09/OffShoreWind_Project`` (GitHub CLI) and then start up a clean virtual environment of your choice. Afterwards install the following dependencies using pip.<br>
+or ``gh repo clone JoshuaBog09/OffShoreWind_Project`` (GitHub CLI) and then start up a clean virtual environment of your choice(python 3.9 should be used). Afterwards install the following dependencies using pip.<br>
 ```
 pip install matplotlib
 pip install numpy
@@ -24,4 +24,8 @@ ___
 | Poster                 | Wessel and Mees   |                 |                    |                    |
 | ...                    |                   |                 |                    |                    |
 ___
+
+## Documentation
+
+---
 ## Sources

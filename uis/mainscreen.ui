@@ -255,8 +255,17 @@ QGroupBox::title {
                   <property name="styleSheet">
                    <string notr="true">font: 12px Leelawadee UI;</string>
                   </property>
+                  <property name="lineWidth">
+                   <number>1</number>
+                  </property>
+                  <property name="midLineWidth">
+                   <number>0</number>
+                  </property>
                   <property name="text">
-                   <string>Turbine placement (as list: 1000, 2000, ...) (the first turnine is there by default)</string>
+                   <string>Turbine placement (as list: 1000, 2000, ...) (the first turbine is at 0 by default, and should not be supplied in the entry field)</string>
+                  </property>
+                  <property name="wordWrap">
+                   <bool>true</bool>
                   </property>
                  </widget>
                 </item>
@@ -315,43 +324,29 @@ p, li { white-space: pre-wrap; }
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="error_field_box">
+              <widget class="QLabel" name="label_14">
                <property name="styleSheet">
-                <string notr="true">QGroupBox {
-	border: 2px solid  rgb(217, 217, 217);
-	border-radius: 6px;
-	background: rgba(0, 0, 0, 0);
-	margin: 0.5em;
-	font: 14px Leelawadee UI;
-}
-
-QGroupBox::title {
-	subcontrol-origin: margin;
-	top: 1px;
-    left: 16px;
-	color: rgb(0, 0, 0);
-}</string>
-               </property>
-               <property name="title">
-                <string>Error Field</string>
-               </property>
-               <layout class="QVBoxLayout" name="verticalLayout_8">
-                <item>
-                 <widget class="QTextBrowser" name="error_field">
-                  <property name="styleSheet">
-                   <string notr="true">color: rgb(255, 0, 0);
+                <string notr="true">font: 12px Leelawadee UI;
 </string>
-                  </property>
-                  <property name="html">
-                   <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+               </property>
+               <property name="text">
+                <string>Error field</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QTextBrowser" name="error_field">
+               <property name="styleSheet">
+                <string notr="true">color: rgb(255, 0, 0);
+</string>
+               </property>
+               <property name="html">
+                <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
+               </property>
               </widget>
              </item>
             </layout>
@@ -376,40 +371,44 @@ p, li { white-space: pre-wrap; }
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
-           <widget class="QPushButton" name="pushButton">
-            <property name="font">
-             <font>
-              <family>Leelawadee UI</family>
-              <pointsize>-1</pointsize>
-              <weight>50</weight>
-              <italic>false</italic>
-              <bold>false</bold>
-             </font>
-            </property>
+           <widget class="QPushButton" name="open_github">
             <property name="cursor">
              <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="layoutDirection">
+             <enum>Qt::RightToLeft</enum>
             </property>
             <property name="styleSheet">
              <string notr="true">QPushButton{
 font: 22px;
 border-radius: 5px;
-background-color: rgb(112, 173, 71, 0.75);
+background-color: rgb(255, 255, 255, 0.75);
 color: rgba(255, 255, 255);
 border-style: outset;
 border-color: rgba(0, 0, 0, 0.75);
 border-width: 1px;
+qproperty-icon:url(:/GitHub/images/github_PNG15.png);
+color: rgb(0, 255, 127);
+padding-top: 5px; 
+padding-bottom: 5px;
 }
-QPushButton:pressed {
-border-style: inset;
-background-color: rgba(112, 173, 71,1);
-}
+
 QPushButton:hover {
 border-style: inset;
-background-color:  rgba(112, 173, 71, 0.5);
+background-color:  rgba(255, 255, 255, 0.25);
 }</string>
             </property>
             <property name="text">
-             <string>Submit</string>
+             <string/>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>100</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="default">
+             <bool>false</bool>
             </property>
            </widget>
           </item>
@@ -436,6 +435,8 @@ color: rgb(255, 255, 255);
 border-style: outset;
 border-color: rgba(0, 0, 0, 0.75);
 border-width: 1px;
+padding-top: 5px; 
+padding-bottom: 5px;
 }
 QPushButton:pressed {
 border-style: inset;
@@ -474,6 +475,8 @@ color: rgb(255, 255, 255);
 border-style: outset;
 border-color: rgba(0, 0, 0, 0.75);
 border-width: 1px;
+padding-top: 5px; 
+padding-bottom: 5px;
 }
 QPushButton:pressed {
 border-style: inset;
@@ -490,6 +493,46 @@ background-color:  rgba(255, 0, 0, 0.5);
            </widget>
           </item>
          </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton">
+         <property name="font">
+          <font>
+           <family>Leelawadee UI</family>
+           <pointsize>-1</pointsize>
+           <weight>50</weight>
+           <italic>false</italic>
+           <bold>false</bold>
+          </font>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton{
+font: 22px;
+border-radius: 5px;
+background-color: rgb(112, 173, 71, 0.75);
+color: rgba(255, 255, 255);
+border-style: outset;
+border-color: rgba(0, 0, 0, 0.75);
+border-width: 1px;
+padding-top: 3px; 
+padding-bottom: 3px;
+}
+QPushButton:pressed {
+border-style: inset;
+background-color: rgba(112, 173, 71,1);
+}
+QPushButton:hover {
+border-style: inset;
+background-color:  rgba(112, 173, 71, 0.5);
+}</string>
+         </property>
+         <property name="text">
+          <string>Submit</string>
+         </property>
         </widget>
        </item>
       </layout>
@@ -588,7 +631,7 @@ QGroupBox::title {
              <string notr="true">font: 12px Leelawadee UI;</string>
             </property>
             <property name="text">
-             <string>Farm efficiency:</string>
+             <string>Farm efficiency (in %):</string>
             </property>
            </widget>
           </item>
@@ -647,35 +690,12 @@ QGroupBox::title {
             <property name="readOnly">
              <bool>true</bool>
             </property>
+            <property name="placeholderText">
+             <string>in %</string>
+            </property>
            </widget>
           </item>
          </layout>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="pushButton_4">
-         <property name="cursor">
-          <cursorShape>PointingHandCursor</cursorShape>
-         </property>
-         <property name="layoutDirection">
-          <enum>Qt::RightToLeft</enum>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">qproperty-icon:url(:/GitHub/images/github_PNG15.png);
-color: rgb(0, 255, 127);</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>100</width>
-           <height>30</height>
-          </size>
-         </property>
-         <property name="default">
-          <bool>false</bool>
-         </property>
         </widget>
        </item>
       </layout>
