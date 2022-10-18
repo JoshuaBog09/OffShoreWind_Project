@@ -21,8 +21,11 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.pushButton.clicked.connect(self.submit)
         self.open_github.clicked.connect(self.github)
-        self.pushButton_3.clicked.connect(self.end)
+        self.quit_app.clicked.connect(self.end)
+        self.open_history.clicked.connect(self.history)
         # self.wind_velocity.setText(f"Hello")
+
+        self.local_history = []
 
         self.plotWidget = FigureCanvasQTAgg(plt.Figure())
         self.lay = QtWidgets.QVBoxLayout(self.plot_area)
@@ -30,6 +33,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.lay.addWidget(self.plotWidget)
 
     def submit(self):
+
         self.error_field.setText("")
 
         if self.v_ref.text() and self.hub_height.text() and self.diameter.text() and self.turbine_placement.text() and self.h_ref.text() and self.C_f.text():
@@ -63,16 +67,70 @@ class MainWindow(QtWidgets.QMainWindow):
                 self.plotWidget.deleteLater()
                 self.plotWidget = FigureCanvasQTAgg(self.fig)
                 self.lay.addWidget(self.plotWidget)
+
+                # Storing data for the history
+                self.local_history.append(
+                    {
+                        "V_ref"             : v_ref,
+                        "H_ref"             : h_ref,
+                        "Cf"                : c_f,
+                        "Hub_height"        : hub_height,
+                        "Diameter"          : diameter,
+                        "Turbine_placement" : turbine_placement_list,
+                        "Farm_power"        : windfarm_var[0],
+                        "Farm_efficiency"   : windfarm_var[1],
+                        "Power_first"       : windfarm_var[2],
+                        "Energy_yield"      : windfarm_var[3],
+                    }
+                )
+
             elif not windfarm_var[-1]:
                 self.error_field.setText(windfarm_var[0])
         else:
             self.error_field.setText(f"Please fill in all the values in the input boxes on the left to proceed")
 
+    def history(self):
+        """
+        call history window
+        """
+        dlg = HistoryDialog(self.local_history)
+        dlg.exec()
+
     def end(self):
+        """
+        Close program
+        """
         sys.exit()
 
     def github(self):
+        """
+        Open GitHub
+        """
         webbrowser.open('https://github.com/JoshuaBog09/OffShoreWind_Project')
+
+class HistoryDialog(QtWidgets.QDialog):
+    """
+    Custom dialog window class
+    """
+    def __init__(self, local_history):
+        """
+        :param local_history: Local history of the app, all the successful runs are stored here
+        """
+        super().__init__()
+
+        self.setWindowTitle("Runtime History")
+
+        self.layout = QtWidgets.QVBoxLayout()
+        message = QtWidgets.QTextBrowser()
+
+        # Display history items
+        for idx, item in enumerate(local_history):
+            message.append(f"Run{idx}: {item}")
+
+        # Placing and window size
+        self.layout.addWidget(message)
+        self.setLayout(self.layout)
+        self.resize(1600,300)
 
 
 app = QtWidgets.QApplication(sys.argv)

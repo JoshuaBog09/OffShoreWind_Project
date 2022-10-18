@@ -107,8 +107,10 @@ def windfarm(turbine_diameter: float, hub_height: float, v_reference: float, h_r
         :return: Get the velocity at the requested height
         """
         h_request = round(h_request, 2)  # ensure h_reference is within accuracy
-        heightrange = np.arange(0, h_request + 0.01, 0.01)
+        heightrange = np.arange(0, h_request + 0.01, 0.01) # create height range array
+        # log law
         velocities = v_reference * (np.log(heightrange[heightrange <= h_blend] / z_zero) / np.log(h_reference / z_zero))
+        # power law
         velocities = np.append(velocities, velocities[-1] * (heightrange[heightrange > h_blend] / h_blend) ** alpha)
         return velocities[int(np.where(heightrange == h_request)[0])]
 
