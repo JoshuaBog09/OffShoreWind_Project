@@ -51,5 +51,5 @@ there are only power yields equal to the one of the first wind turbine.
 The last output is energy yield over one year in MWh.
 ---
 ## Sources
-[1] TU Delft, Lecture 4: Windfarms, 2022<br>
-[2] TU Delft, Lecture 2: WindWaveResource, 2022<br>
+[1] TU Delft AE3516A, Lecture 4: Windfarms, 2022<br>
+[2] TU Delft AE3516A, Lecture 2: WindWaveResource, 2022<br>
