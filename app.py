@@ -19,6 +19,8 @@ class MainWindow(QtWidgets.QMainWindow):
         super().__init__(*args, **kwargs)
         uic.loadUi("uis/mainscreen.ui", self)
 
+        self.setWindowTitle("Wake effect simulator")
+
         self.pushButton.clicked.connect(self.submit)
         self.open_github.clicked.connect(self.github)
         self.quit_app.clicked.connect(self.end)
