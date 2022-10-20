@@ -45,12 +45,6 @@ class MainWindow(QtWidgets.QMainWindow):
             turbine_placement_list = [float(ele) for ele in turbine_placement_list]
             h_ref = float(self.h_ref.text())
             c_f = float(self.C_f.text())
-            # print(h_ref)
-            # print(v_ref)
-            # print(hub_height)
-            # print(diameter)
-            # print(turbine_placement_list)
-            # h_blend = float(self.h_blend.text())
 
             windfarm_var = windfarm(diameter, hub_height, v_ref, h_ref, turbine_placement_list, c_f)
             if windfarm_var[-1]:
@@ -65,6 +59,8 @@ class MainWindow(QtWidgets.QMainWindow):
                 self.ax.plot(windfarm_var[4], windfarm_var[5])
                 ymin, ymax = self.ax.get_ylim()
                 self.ax.vlines(x=turbine_placement_list[:], ymin=ymin, ymax=ymax, colors='teal', ls='--', lw=1)
+                for i, x in enumerate(turbine_placement_list, start=1):
+                    plt.text(x, ymin+ymin/10, f"Turbine {i}", rotation=90, verticalalignment='center')
                 self.ax.set_ylabel("Wake velocity in m/s")
                 self.ax.set_xlabel("Location in m")
                 self.plotWidget.deleteLater()
@@ -74,16 +70,16 @@ class MainWindow(QtWidgets.QMainWindow):
                 # Storing data for the history
                 self.local_history.append(
                     {
-                        "V_ref[m/s]"            : v_ref,
-                        "H_ref[m]"              : h_ref,
-                        "Cf[-]"                 : c_f,
-                        "Hub_height[m]"         : hub_height,
-                        "Diameter[m]"           : diameter,
-                        "Turbine_placement[m]"  : turbine_placement_list,
-                        "Farm_power[W]"         : windfarm_var[0],
-                        "Farm_efficiency[-]"    : windfarm_var[1],
-                        "Power_first[W]"        : windfarm_var[2],
-                        "Energy_yield[Wh]"      : windfarm_var[3],
+                        "V_ref[m/s]"                : v_ref,
+                        "H_ref[m]"                  : h_ref,
+                        "Cf[-]"                     : c_f,
+                        "Hub_height[m]"             : hub_height,
+                        "Diameter[m]"               : diameter,
+                        "Turbine_placement[m]"      : turbine_placement_list,
+                        "Farm_power[W](Out)"        : windfarm_var[0],
+                        "Farm_efficiency[-](Out)"   : windfarm_var[1],
+                        "Power_first[W](Out)"       : windfarm_var[2],
+                        "Energy_yield[Wh](Out)"     : windfarm_var[3],
                     }
                 )
 
@@ -127,7 +123,7 @@ class HistoryDialog(QtWidgets.QDialog):
         message = QtWidgets.QTextBrowser()
 
         # Display history items
-        for idx, item in enumerate(local_history):
+        for idx, item in enumerate(local_history, start=1):
             message.append(f"Run{idx}: {item}")
 
         # Placing and window size
