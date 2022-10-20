@@ -39,54 +39,57 @@ class MainWindow(QtWidgets.QMainWindow):
         self.error_field.setText("")
 
         if self.v_ref.text() and self.hub_height.text() and self.diameter.text() and self.turbine_placement.text() and self.h_ref.text() and self.C_f.text():
-            v_ref = float(self.v_ref.text())
-            hub_height = float(self.hub_height.text())
-            diameter = float(self.diameter.text())
-            turbine_placement = str(self.turbine_placement.text())
-            turbine_placement_list = turbine_placement.split(", ")
-            turbine_placement_list = [float(ele) for ele in turbine_placement_list]
-            h_ref = float(self.h_ref.text())
-            c_f = float(self.C_f.text())
+            try:
+                v_ref = float(self.v_ref.text())
+                hub_height = float(self.hub_height.text())
+                diameter = float(self.diameter.text())
+                turbine_placement = str(self.turbine_placement.text())
+                turbine_placement_list = turbine_placement.split(", ")
+                turbine_placement_list = [float(ele) for ele in turbine_placement_list]
+                h_ref = float(self.h_ref.text())
+                c_f = float(self.C_f.text())
 
-            windfarm_var = windfarm(diameter, hub_height, v_ref, h_ref, turbine_placement_list, c_f)
-            if windfarm_var[-1]:
-                self.farm_power.setText(str(round(windfarm_var[0]/10**6, 3)))
-                self.farm_eff.setText(str(round(windfarm_var[1], 3)))
-                self.power_first_turbine.setText(str(round(windfarm_var[2]/10**6, 3)))
-                self.energy_yield_yr.setText(str(round(windfarm_var[3]/10**6, 3)))
+                windfarm_var = windfarm(diameter, hub_height, v_ref, h_ref, turbine_placement_list, c_f)
+                if windfarm_var[-1]:
+                    self.farm_power.setText(str(round(windfarm_var[0]/10**6, 3)))
+                    self.farm_eff.setText(str(round(windfarm_var[1], 3)))
+                    self.power_first_turbine.setText(str(round(windfarm_var[2]/10**6, 3)))
+                    self.energy_yield_yr.setText(str(round(windfarm_var[3]/10**6, 3)))
 
-                turbine_placement_list.insert(0, 0)
+                    turbine_placement_list.insert(0, 0)
 
-                self.fig, self.ax = plt.subplots()
-                self.ax.plot(windfarm_var[4], windfarm_var[5])
-                ymin, ymax = self.ax.get_ylim()
-                self.ax.vlines(x=turbine_placement_list[:], ymin=ymin, ymax=ymax, colors='teal', ls='--', lw=1)
-                for i, x in enumerate(turbine_placement_list, start=1):
-                    plt.text(x, ymin+ymin/10, f"Turbine {i}", rotation=90, verticalalignment='center')
-                self.ax.set_ylabel("Wake velocity in m/s")
-                self.ax.set_xlabel("Location in m")
-                self.plotWidget.deleteLater()
-                self.plotWidget = FigureCanvasQTAgg(self.fig)
-                self.lay.addWidget(self.plotWidget)
+                    self.fig, self.ax = plt.subplots()
+                    self.ax.plot(windfarm_var[4], windfarm_var[5])
+                    ymin, ymax = self.ax.get_ylim()
+                    self.ax.vlines(x=turbine_placement_list[:], ymin=ymin, ymax=ymax, colors='teal', ls='--', lw=1)
+                    for i, x in enumerate(turbine_placement_list, start=1):
+                        plt.text(x, ymin+ymin/10, f"Turbine {i}", rotation=90, verticalalignment='center')
+                    self.ax.set_ylabel("Wake velocity in m/s")
+                    self.ax.set_xlabel("Location in m")
+                    self.plotWidget.deleteLater()
+                    self.plotWidget = FigureCanvasQTAgg(self.fig)
+                    self.lay.addWidget(self.plotWidget)
 
-                # Storing data for the history
-                self.local_history.append(
-                    {
-                        "V_ref[m/s]"                : v_ref,
-                        "H_ref[m]"                  : h_ref,
-                        "Cf[-]"                     : c_f,
-                        "Hub_height[m]"             : hub_height,
-                        "Diameter[m]"               : diameter,
-                        "Turbine_placement[m]"      : turbine_placement_list,
-                        "Farm_power[W](Out)"        : windfarm_var[0],
-                        "Farm_efficiency[-](Out)"   : windfarm_var[1],
-                        "Power_first[W](Out)"       : windfarm_var[2],
-                        "Energy_yield[Wh](Out)"     : windfarm_var[3],
-                    }
-                )
+                    # Storing data for the history
+                    self.local_history.append(
+                        {
+                            "V_ref[m/s]"                : v_ref,
+                            "H_ref[m]"                  : h_ref,
+                            "Cf[-]"                     : c_f,
+                            "Hub_height[m]"             : hub_height,
+                            "Diameter[m]"               : diameter,
+                            "Turbine_placement[m]"      : turbine_placement_list,
+                            "Farm_power[W](Out)"        : windfarm_var[0],
+                            "Farm_efficiency[-](Out)"   : windfarm_var[1],
+                            "Power_first[W](Out)"       : windfarm_var[2],
+                            "Energy_yield[Wh](Out)"     : windfarm_var[3],
+                        }
+                    )
 
-            elif not windfarm_var[-1]:
-                self.error_field.setText(windfarm_var[0])
+                elif not windfarm_var[-1]:
+                    self.error_field.setText(windfarm_var[0])
+            except:
+                self.error_field.setText(f"An incorrect character was identified, in the input fields")
         else:
             self.error_field.setText(f"Please fill in all the values in the input boxes on the left to proceed")
 
