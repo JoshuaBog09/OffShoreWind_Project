@@ -37,7 +37,6 @@ class MainWindow(QtWidgets.QMainWindow):
         self.error_field.setText("")
 
         if self.v_ref.text() and self.hub_height.text() and self.diameter.text() and self.turbine_placement.text() and self.h_ref.text() and self.C_f.text():
-
             v_ref = float(self.v_ref.text())
             hub_height = float(self.hub_height.text())
             diameter = float(self.diameter.text())
