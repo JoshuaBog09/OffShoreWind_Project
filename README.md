@@ -9,7 +9,6 @@ or ``gh repo clone JoshuaBog09/OffShoreWind_Project`` (GitHub CLI) and then star
 pip install matplotlib
 pip install numpy
 pip install pyqt5
-pip install pyqt5-tools
 ```
 
 
