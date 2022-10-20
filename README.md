@@ -10,7 +10,6 @@ pip install matplotlib
 pip install numpy
 pip install pyqt5
 pip install pyqt5-tools
-pip install requests
 ```
 
 
