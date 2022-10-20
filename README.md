@@ -16,16 +16,20 @@ pip install requests
 
 ___
 ## Progress and task devsion
-| Task                   | Done by           | Current status  | Checked            | Completed          | 
-|------------------------|-------------------|-----------------|--------------------|--------------------|
-| GUI                    | Joshua and Roel   | Near completion |                    |                    |
-| Wake effect model      | Joshua            | Completed       | :heavy_check_mark: | :heavy_check_mark: |
-| Velocity profile model | Joshua and Wessel | Completed       | :heavy_check_mark: | :heavy_check_mark: |
-| Poster                 | Wessel and Mees   |                 |                    |                    |
-| ...                    |                   |                 |                    |                    |
+| Task                   | Done by           | Current status | Checked               | Completed            | 
+|------------------------|-------------------|----------------|-----------------------|----------------------|
+| GUI                    | Joshua and Roel   | Completed      | :heavy_check_mark:    | :heavy_check_mark:   |
+| Wake effect model      | Joshua            | Completed      | :heavy_check_mark:    | :heavy_check_mark:   |
+| Velocity profile model | Joshua and Wessel | Completed      | :heavy_check_mark:    | :heavy_check_mark:   |
+| Poster                 | Wessel and Mees   | In progress    |                       |                      |
+| Documentation          | Roel and Joshua   | Completed      | :heavy_check_mark:    | :heavy_check_mark:   | 
+| ...                    |                   |                |                       |                      |
 ___
 
 ## Documentation
+
+### Guide
+
 1. Insert the reference velocity in meters per second. Generally this is around the 10 m/s on sea.
 2. Insert the reference height in meters. This is the height at which the reference velocity is measured. Generally this 
 is at 10 meters above the ground.
@@ -48,7 +52,16 @@ turbines in the row since wake effects modeled by the Jensen model affect the wi
 model uses the extraction of momentum of the wind. This results in a wake expansion with a factor of 0.05. 
 <br>The third output is efficiency of the array with respect the that of the array without wake effects. This is as if 
 there are only power yields equal to the one of the first wind turbine. 
-The last output is energy yield over one year in MWh.
+The last output is energy yield over one year in MWh. <br>
+
+### Visual guide
+![Mainwindow without inputs](./docs_images/main(NoInput).jpg)
+![History dialog](./docs_images/history(NoData).jpg)
+![Mainwindow with inputs](./docs_images/main(Input).jpg)
+![History dialog with data](./docs_images/history(Data).jpg)
+![Mainwindow with error](./docs_images/main(Error).jpg)
+
+
 ---
 ## Sources
 [1] TU Delft AE3516A, Lecture 4: Windfarms, 2022<br>
