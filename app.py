@@ -124,6 +124,11 @@ class HistoryDialog(QtWidgets.QDialog):
 
         self.setWindowTitle("Runtime History")
 
+        QBtn = QtWidgets.QDialogButtonBox.Ok
+
+        self.buttonBox = QtWidgets.QDialogButtonBox(QBtn)
+        self.buttonBox.accepted.connect(self.accept)
+
         self.layout = QtWidgets.QVBoxLayout()
         message = QtWidgets.QTextBrowser()
 
@@ -133,6 +138,7 @@ class HistoryDialog(QtWidgets.QDialog):
 
         # Placing and window size
         self.layout.addWidget(message)
+        self.layout.addWidget(self.buttonBox)
         self.setLayout(self.layout)
         self.resize(1600,300)
 
