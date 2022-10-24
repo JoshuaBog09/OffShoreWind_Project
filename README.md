@@ -40,7 +40,7 @@ meters.
 5. Insert the rotor diameter in meters. This is generally around 200 meters.
 6. Insert the turbine placement in the row of wind turbines. This needs to be at least 3 rotor diameters away from the 
 previous wind turbine. The first turbine is by definition placed at 0 meters and should not be implemented in the 
-list. 
+list. The separation of the list entries is a comma with a space after it (, ). 
 <br><br>
 As output you get the power of the first turbine in line. This is interesting since this turbine the highest power of 
 all the turbines in the array. This power is obtained by using the velocity of the wind at the hub height and the wind 
