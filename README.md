@@ -13,15 +13,17 @@ pip install pyqt5
 
 
 ___
-## Progress and task devsion
-| Task                   | Done by           | Current status | Checked               | Completed            | 
-|------------------------|-------------------|----------------|-----------------------|----------------------|
-| GUI                    | Joshua and Roel   | Completed      | :heavy_check_mark:    | :heavy_check_mark:   |
-| Wake effect model      | Joshua            | Completed      | :heavy_check_mark:    | :heavy_check_mark:   |
-| Velocity profile model | Joshua and Wessel | Completed      | :heavy_check_mark:    | :heavy_check_mark:   |
-| Poster                 | Wessel and Mees   | In progress    |                       |                      |
-| Documentation          | Roel and Joshua   | Completed      | :heavy_check_mark:    | :heavy_check_mark:   | 
-| ...                    |                   |                |                       |                      |
+## Progress and task division
+| Task                   | Done by                      | Current status | Checked               | Completed            | 
+|------------------------|------------------------------|----------------|-----------------------|----------------------|
+| GUI                    | Joshua and Roel              | Completed      | :heavy_check_mark:    | :heavy_check_mark:   |
+| Wake effect model      | Joshua                       | Completed      | :heavy_check_mark:    | :heavy_check_mark:   |
+| Velocity profile model | Joshua and Wessel            | Completed      | :heavy_check_mark:    | :heavy_check_mark:   |
+| Poster                 | Wessel and Mees              | In progress    |                       |                      |
+| Documentation          | Roel(Text) and Joshua(Photo) | Completed      | :heavy_check_mark:    | :heavy_check_mark:   | 
+| Interesting info       | Roel                         | Completed      | :heavy_check_mark:    | :heavy_check_mark:   |
+| Error display          | Roel                         | Completed      | :heavy_check_mark:    | :heavy_check_mark:   |  
+| ...                    |                              |                |                       |                      |
 ___
 
 ## Documentation
